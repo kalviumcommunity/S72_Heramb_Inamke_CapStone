@@ -1,5 +1,5 @@
 import express from 'express';
-import Guest from '../models/guest.js';
+import Guest from '../models/Guest.js';
 import auth from '../middleware/auth.js';
 
 const router = express.Router();
