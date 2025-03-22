@@ -1,0 +1,231 @@
+/* Wedding-themed Auth Page Styles */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(135deg, #fff8f8 0%, #f9e6e6 100%);
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f5d0d0' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 450px;
+}
+
+.auth-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #9d4e4e;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.user-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(157, 78, 78, 0.1);
+  border: 1px solid #f5d0d0;
+  transition: all 0.3s ease;
+}
+
+.user-card:hover {
+  box-shadow: 0 15px 30px rgba(157, 78, 78, 0.15);
+  transform: translateY(-5px);
+}
+
+.profile-image-container {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f5d0d0;
+  padding: 3px;
+}
+
+.online-indicator {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 15px;
+  height: 15px;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.user-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.user-email {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.signout-button {
+  background-color: white;
+  color: #d88c8c;
+  border: 1px solid #d88c8c;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signout-button:hover {
+  background-color: #f9e6e6;
+}
+
+.login-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(157, 78, 78, 0.1);
+  border: 1px solid #f5d0d0;
+  width: 100%;
+}
+
+.login-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #9d4e4e;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.875rem;
+  margin-bottom: 1rem;
+  border: 1px solid #f0e0e0;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #d88c8c;
+  box-shadow: 0 0 0 3px rgba(216, 140, 140, 0.2);
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.signin-button {
+  background-color: #d88c8c;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signin-button:hover {
+  background-color: #c27575;
+}
+
+.signup-button {
+  background-color: white;
+  color: #d88c8c;
+  border: 1px solid #d88c8c;
+  border-radius: 0.5rem;
+  padding: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: #f9e6e6;
+}
+
+.divider {
+  position: relative;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.divider-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #f0e0e0;
+}
+
+.divider-text {
+  position: relative;
+  display: inline-block;
+  padding: 0 1rem;
+  background-color: white;
+  color: #999;
+  font-size: 0.875rem;
+}
+
+.google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  padding: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.google-button:hover {
+  background-color: #f8f8f8;
+  border-color: #ccc;
+}
+
+.google-icon {
+  margin-right: 0.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .auth-title {
+    font-size: 1.75rem;
+  }
+  
+  .login-card, .user-card {
+    padding: 1.5rem;
+  }
+  
+  .decorative-flower {
+    width: 100px;
+    height: 100px;
+  }
+} 

@@ -1,17 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import AuthPage from './AuthPage'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import LandingPage from "./LandingPage";
+import AuthPage from "./AuthPage";
+import Dashboard from "./Dashboard";
+import useAuth from "../useAuth";
+
+// Protected route component
+const ProtectedRoute = ({ children }) => {
+  const user = useAuth();
+  
+  if (!user) {
+    return <Navigate to="/auth" />;
+  }
+  
+  return children;
+};
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <AuthPage />
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/auth" element={<AuthPage />} />
+        <Route 
+          path="/dashboard" 
+          element={
+              <Dashboard />
+          } 
+        />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
