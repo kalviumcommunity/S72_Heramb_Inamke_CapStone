@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import LandingPage from "./LandingPage";
+import LandingPage from "./pages/LandingPage";
 import AuthPage from "./AuthPage";
-import Dashboard from "./Dashboard";
+import Dashboard from "./pages/Dashboard";
 import useAuth from "../useAuth";
 
 // Protected route component
