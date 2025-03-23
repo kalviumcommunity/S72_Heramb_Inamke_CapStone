@@ -2,14 +2,20 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import axiosInstance from '../utils/axiosConfig';
 import '../styles/PhotoGallery.css';
+import { useParams } from 'react-router-dom';
 
-const PhotoGallery = ({ weddingId }) => {
+const PhotoGallery = () => {
   const [photos, setPhotos] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [caption, setCaption] = useState('');
+  
+  const { weddingId } = useParams();
 
   // Fetch photos when component mounts
   useEffect(() => {
@@ -59,56 +65,39 @@ const PhotoGallery = ({ weddingId }) => {
     setPreviewImages(previews);
   };
 
-  const handleUpload = async () => {
-    if (selectedFiles.length === 0) {
-      setError('Please select at least one file to upload');
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    
+    if (!selectedFile) {
+      setError('Please select a file to upload');
       return;
     }
     
-    if (!weddingId || weddingId === "placeholder-wedding-id") {
-      setError('No valid wedding ID available. Please create a wedding first.');
-      return;
-    }
-
+    const formData = new FormData();
+    formData.append('photo', selectedFile);
+    formData.append('caption', caption);
+    
     try {
-      setLoading(true);
-      setError('');
-      
-      const formData = new FormData();
-      selectedFiles.forEach(file => {
-        formData.append('photos', file);
-      });
-
-      const response = await axiosInstance.post(
-        `/api/weddings/${weddingId}/photos`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
-          onUploadProgress: (progressEvent) => {
-            const percentCompleted = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            setUploadProgress(percentCompleted);
-          }
+      setUploadingPhoto(true);
+      const response = await axiosInstance.post(`/api/weddings/${weddingId}/photos`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
-      );
-
-      // Clear selected files and previews after successful upload
-      setSelectedFiles([]);
-      setPreviewImages([]);
-      setUploadProgress(0);
+      });
       
-      // Refresh the photo gallery
-      fetchPhotos();
+      // Add the new photo to the gallery
+      setPhotos([...photos, response.data]);
       
-      setLoading(false);
-    } catch (error) {
-      console.error('Error uploading photos:', error);
-      setError('Failed to upload photos. Please try again.');
-      setLoading(false);
-      setUploadProgress(0);
+      // Reset form
+      setSelectedFile(null);
+      setCaption('');
+      setUploadingPhoto(false);
+      
+      // Reset file input
+      document.getElementById('photo-upload').value = '';
+    } catch (err) {
+      setError('Failed to upload photo. Please try again.');
+      setUploadingPhoto(false);
     }
   };
 
@@ -132,6 +121,8 @@ const PhotoGallery = ({ weddingId }) => {
     }
   };
 
+  if (loading) return <div>Loading photos...</div>;
+  
   return (
     <div className="photo-gallery-container">
       {/* Debug info */}
@@ -144,26 +135,36 @@ const PhotoGallery = ({ weddingId }) => {
       {/* Upload section */}
       <div className="upload-section">
         <h3>Add New Photos</h3>
-        <div className="file-input-container">
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={handleFileChange}
-            id="photo-upload"
-            className="file-input"
-          />
-          <label htmlFor="photo-upload" className="file-input-label">
-            Choose Files
-          </label>
+        <form onSubmit={handleUpload} className="upload-form">
+          <div className="form-group">
+            <label htmlFor="photo-upload">Upload a new photo:</label>
+            <input 
+              type="file" 
+              id="photo-upload" 
+              accept="image/*" 
+              onChange={handleFileChange} 
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="caption">Caption:</label>
+            <input
+              type="text"
+              id="caption"
+              value={caption}
+              onChange={(e) => setCaption(e.target.value)}
+              placeholder="Add a caption (optional)"
+            />
+          </div>
+          
           <button 
-            onClick={handleUpload} 
-            disabled={loading || selectedFiles.length === 0}
+            type="submit" 
+            disabled={uploadingPhoto || !selectedFile}
             className="upload-button"
           >
-            Upload Photos
+            {uploadingPhoto ? 'Uploading...' : 'Upload Photo'}
           </button>
-        </div>
+        </form>
         
         {/* Preview selected images */}
         {previewImages.length > 0 && (

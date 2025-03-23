@@ -1,38 +1,42 @@
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
-// Set storage engine
+// Set up storage for wedding photos
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, 'uploads/');
+    const weddingId = req.params.weddingId || 'general';
+    const uploadPath = `uploads/weddings/${weddingId}`;
+    
+    // Create directory if it doesn't exist
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    
+    cb(null, uploadPath);
   },
   filename: function(req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
+    // Create unique filename with timestamp
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
   }
 });
 
-// Check file type
-function checkFileType(file, cb) {
-  // Allowed extensions
-  const filetypes = /jpeg|jpg|png|gif|pdf|doc|docx/;
-  // Check extension
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  // Check mime type
-  const mimetype = filetypes.test(file.mimetype);
-
-  if (mimetype && extname) {
-    return cb(null, true);
+// File filter to only allow image files
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image/')) {
+    cb(null, true);
   } else {
-    cb('Error: Invalid file type!');
+    cb(new Error('Only image files are allowed!'), false);
   }
-}
+};
 
-// Initialize upload
-const upload = multer({
+// Create multer upload instance
+const upload = multer({ 
   storage: storage,
-  limits: { fileSize: 1000000000 }, // 10MB
-  fileFilter: function(req, file, cb) {
-    checkFileType(file, cb);
+  fileFilter: fileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB file size limit
   }
 });
 

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
+const bcrypt = require('bcryptjs');
 
 const userSchema = new Schema({
   name: { type: String, required: true },
@@ -14,7 +15,20 @@ const userSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Task'
   }],
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  weddings: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Wedding'
+  }],
+  participatingWeddings: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Wedding',
+    role: {
+      type: String,
+      enum: ['guest', 'bridesmaid', 'groomsman', 'other'],
+      default: 'guest'
+    }
+  }]
 });
 
 export default mongoose.model('User', userSchema);
