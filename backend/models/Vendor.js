@@ -1,13 +1,37 @@
 import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-const vendorSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  businessName: { type: String, required: true },
-  category: { type: String, required: true },
-  location: { type: String, required: true },
-  priceRange: { type: String, required: true },
-  description: String,
-  contactNumber: String
+const VendorSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: String,
+    enum: ['Venue', 'Catering', 'Photography', 'Florist', 'Music', 'Other'],
+    required: true
+  },
+  contact: {
+    email: String,
+    phone: String,
+    website: String
+  },
+  // Relationship with Wedding (many-to-one)
+  wedding: {
+    type: Schema.Types.ObjectId,
+    ref: 'Wedding',
+    required: true
+  },
+  price: {
+    type: Number
+  },
+  notes: {
+    type: String
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 });
 
-export default mongoose.model('Vendor', vendorSchema);
+export default mongoose.model('Vendor', VendorSchema);
