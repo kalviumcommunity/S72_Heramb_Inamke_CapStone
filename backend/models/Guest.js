@@ -1,15 +1,28 @@
 import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-
-const guestSchema = new mongoose.Schema({
+const guestSchema = new Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   name: { type: String, required: true },
-  email: String,
-  phone: String,
-  rsvpStatus: {
+  email: { type: String, required: true },
+  phone: { type: String },
+  wedding: {
+    type: Schema.Types.ObjectId,
+    ref: 'Wedding',
+    required: true
+  },
+  status: {
     type: String,
-    enum: ['pending', 'attending', 'not-attending'],
-    default: 'pending'
+    enum: ['Invited', 'Confirmed', 'Declined', 'Pending'],
+    default: 'Invited'
+  },
+  partySize: {
+    type: Number,
+    default: 1
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 });
 

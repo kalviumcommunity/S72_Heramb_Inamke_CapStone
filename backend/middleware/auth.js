@@ -1,20 +1,21 @@
-import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 const auth = async (req, res, next) => {
   try {
-    const token = req.header('Authorization').replace('Bearer ', '');
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.id);
+    // Simple authentication check without JWT
+    // You might want to implement a different authentication method here
+    // For now, we'll just pass through the middleware
     
-    if (!user) {
-      throw new Error();
-    }
-
-    req.user = user;
+    // You can add a simple API key check if needed
+    // const apiKey = req.header('x-api-key');
+    // if (!apiKey || apiKey !== 'your-api-key') {
+    //   return res.status(401).json({ message: 'Authentication failed' });
+    // }
+    
+    // If you want to completely remove authentication:
     next();
-  } catch (error) {
-    res.status(401).json({ message: 'Please authenticate' });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
   }
 };
 

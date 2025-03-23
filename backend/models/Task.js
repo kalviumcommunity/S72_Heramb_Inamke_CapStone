@@ -1,14 +1,36 @@
 import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-const taskSchema = new mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    title: { type: String, required: true },
-    description: String,
-    dueDate: Date,
+const taskSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String
+    },
+    dueDate: {
+        type: Date,
+        required: true
+    },
+    assignedTo: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    wedding: {
+        type: Schema.Types.ObjectId,
+        ref: 'Wedding',
+        required: true
+    },
     status: {
         type: String,
-        enum: ['pending', 'in-progress', 'completed'],
-        default: 'pending'
+        enum: ['Pending', 'In Progress', 'Completed'],
+        default: 'Pending'
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 
