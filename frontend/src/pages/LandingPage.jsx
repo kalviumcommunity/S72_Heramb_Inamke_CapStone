@@ -19,7 +19,7 @@ const LandingPage = () => {
       
       <header className="landing-header">
         <nav className="landing-nav">
-          <div className="logo">Forever Together</div>
+          <div className="logo">Eternal Love</div>
           <Link to="/auth" className="nav-button">Sign In</Link>
         </nav>
       </header>
@@ -103,7 +103,7 @@ const LandingPage = () => {
       
       <footer className="landing-footer">
         <div className="footer-content">
-          <div className="footer-logo">Forever Together</div>
+          <div className="footer-logo">Eternal Love</div>
           <div className="footer-links">
             <a href="#" className="footer-link">About Us</a>
             <a href="#" className="footer-link">Contact</a>
@@ -131,7 +131,7 @@ const LandingPage = () => {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2025 Forever Together. All rights reserved.</p>
+          <p>© 2025 Eternal Love. All rights reserved.</p>
         </div>
       </footer>
     </div>

@@ -46,7 +46,7 @@ const Dashboard = () => {
       {/* Sidebar */}
       <aside className="dashboard-sidebar">
         <div className="sidebar-header">
-          <div className="logo">Forever Together</div>
+          <div className="logo">Eternal Love</div>
           <div className="user-info">
             <img 
               src={user?.photoURL || "https://via.placeholder.com/40"} 
