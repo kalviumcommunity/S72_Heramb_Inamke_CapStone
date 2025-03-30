@@ -133,3 +133,8 @@ Planning a wedding can be overwhelming, but WedWise is here to make it effortles
 - **Destination Wedding Module**
 - **Task & RSVP Notifications**
 - **Vendor Booking & Payments**
+
+-
+
+# Deployed Link:
+ - Backend :- https://wedwise-capstone.onrender.com/
