@@ -28,6 +28,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/api/guests', guestRoutes);
 app.use('/api/vendors', vendorRoutes);
+app.get('/api/data', (req, res) => {
+  res.json({ message: 'Hello from the backend!' });
+});
 
 // Start server
 const PORT = process.env.PORT || 5000;
