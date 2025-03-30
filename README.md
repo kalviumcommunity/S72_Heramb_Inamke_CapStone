@@ -138,3 +138,4 @@ Planning a wedding can be overwhelming, but WedWise is here to make it effortles
 
 # Deployed Link:
  - Backend :- https://wedwise-capstone.onrender.com/
+ - Frontend :- https://wedwise.vercel.app/
