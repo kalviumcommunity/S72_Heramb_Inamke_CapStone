@@ -8,11 +8,11 @@ import useAuth from "../useAuth";
 // Protected route component
 const ProtectedRoute = ({ children }) => {
   const user = useAuth();
-
+  
   if (!user) {
     return <Navigate to="/auth" />;
   }
-
+  
   return children;
 };
 
@@ -22,11 +22,11 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth" element={<AuthPage />} />
-        <Route
-          path="/dashboard"
+        <Route 
+          path="/dashboard" 
           element={
-            <Dashboard />
-          }
+              <Dashboard />
+          } 
         />
       </Routes>
     </Router>
