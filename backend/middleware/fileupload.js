@@ -2,32 +2,38 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Set up storage for wedding photos
+// Allowed image extensions
+const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
+
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     const weddingId = req.params.weddingId || 'general';
     const uploadPath = `uploads/weddings/${weddingId}`;
-    
-    // Create directory if it doesn't exist
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
+
+    // Create directory safely
+    try {
+      if (!fs.existsSync(uploadPath)) {
+        fs.mkdirSync(uploadPath, { recursive: true });
+      }
+      cb(null, uploadPath);
+    } catch (err) {
+      cb(new Error('Failed to create upload directory'), null);
     }
-    
-    cb(null, uploadPath);
   },
   filename: function(req, file, cb) {
-    // Create unique filename with timestamp
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     cb(null, uniqueSuffix + path.extname(file.originalname));
   }
 });
 
-// File filter to only allow image files
+// File filter with enhanced validation
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image/')) {
+  const ext = path.extname(file.originalname).toLowerCase();
+  
+  if (file.mimetype.startsWith('image/') && allowedExtensions.includes(ext)) {
     cb(null, true);
   } else {
-    cb(new Error('Only image files are allowed!'), false);
+    cb(new Error('Only image files (JPG, JPEG, PNG, GIF, WEBP) are allowed!'), false);
   }
 };
 
@@ -40,4 +46,4 @@ const upload = multer({
   }
 });
 
-module.exports = upload; 
+module.exports = upload;
