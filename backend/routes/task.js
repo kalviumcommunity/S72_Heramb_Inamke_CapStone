@@ -14,6 +14,21 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// endpoint to retrieve a specific task by ID as requested.
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const task = await Task.findOne({ _id: req.params.id, userId: req.user._id });
+
+    if (!task) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Create a new task
 router.post('/', auth, async (req, res) => {
   try {
