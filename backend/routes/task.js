@@ -13,6 +13,20 @@ router.get('/', auth, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const task = await Task.findOne({ _id: req.params.id, userId: req.user._id });
+
+    if (!task) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 // Create a new task
 router.post('/', auth, async (req, res) => {
@@ -25,6 +39,21 @@ router.post('/', auth, async (req, res) => {
     res.status(201).json(task);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+});
+
+// Delete a task by ID
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const deletedTask = await Task.findOneAndDelete({ _id: req.params.id, userId: req.user._id });
+
+    if (!deletedTask) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    res.json({ message: 'Task deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 
