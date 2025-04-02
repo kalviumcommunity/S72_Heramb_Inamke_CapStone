@@ -28,21 +28,6 @@ router.get('/:id', auth, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
-// Create a new task
-router.post('/', auth, async (req, res) => {
-  try {
-    const task = new Task({
-      ...req.body,
-      userId: req.user._id
-    });
-    await task.save();
-    res.status(201).json(task);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-});
-
 // Update a task by ID
 router.put('/:id', auth, async (req, res) => {
   try {
