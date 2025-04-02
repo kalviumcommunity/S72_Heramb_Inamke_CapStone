@@ -13,7 +13,6 @@ router.get('/', auth, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
 // endpoint to retrieve a specific task by ID as requested.
 router.get('/:id', auth, async (req, res) => {
   try {
