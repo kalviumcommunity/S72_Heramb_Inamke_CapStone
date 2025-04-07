@@ -418,3 +418,76 @@
     height: 100px;
   }
 } 
+
+/* --- Animation Styles --- */
+/* These should be added to your existing LandingStyles.css file */
+
+/* Define the animation keyframes */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Base slide-in class to hide elements before animation */
+.slide-in {
+  opacity: 0;
+}
+
+/* Active class that will be added by JavaScript */
+.slide-in.active {
+  opacity: 1;
+}
+
+/* Direction specific animations */
+.slide-left.active {
+  animation: slideInLeft 0.8s ease forwards;
+}
+
+.slide-right.active {
+  animation: slideInRight 0.8s ease forwards;
+}
+
+.slide-up.active {
+  animation: slideInUp 0.8s ease forwards;
+}
+
+/* Delay classes for staggered animations */
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-600 {
+  animation-delay: 0.6s;
+}
