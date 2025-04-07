@@ -1,8 +1,53 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/LandingStyles.css";
 
 const LandingPage = () => {
+  // Add the animation setup function that will run after component mount
+  useEffect(() => {
+    // Wait a bit for DOM to be fully rendered
+    setTimeout(() => {
+      const animatedElements = document.querySelectorAll('.slide-in');
+      
+      // Create intersection observer
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          // Add the active class when element is in view
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            // Stop observing once animation has run
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null, // viewport
+        threshold: 0.15, // trigger when 15% visible
+        rootMargin: '0px'
+      });
+      
+      // Observe all elements with slide-in class
+      animatedElements.forEach(el => {
+        observer.observe(el);
+      });
+      
+      // Initial animation for elements already in view
+      animatedElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+          el.classList.add('active');
+          observer.unobserve(el);
+        }
+      });
+      
+      // Clean up observer on unmount
+      return () => {
+        animatedElements.forEach(el => {
+          observer.unobserve(el);
+        });
+      };
+    }, 100);
+  }, []); // Empty array means this runs once after mount
+
   return (
     <div className="landing-container">
       {/* Decorative elements */}
@@ -26,20 +71,20 @@ const LandingPage = () => {
       
       <main className="landing-main">
         <section className="hero-section">
-          <div className="hero-content">
+          <div className="hero-content slide-in slide-left">
             <h1 className="hero-title">Your Perfect Day Awaits</h1>
             <p className="hero-subtitle">Plan your dream wedding with ease and elegance</p>
             <Link to="/auth" className="cta-button">Get Started</Link>
           </div>
-          <div className="hero-image">
+          <div className="hero-image slide-in slide-right">
             <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Wedding celebration" />
           </div>
         </section>
         
         <section className="features-section">
-          <h2 className="section-title">Why Choose Us</h2>
+          <h2 className="section-title slide-in slide-up">Why Choose Us</h2>
           <div className="features-grid">
-            <div className="feature-card">
+            <div className="feature-card slide-in slide-up">
               <div className="feature-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
@@ -49,7 +94,7 @@ const LandingPage = () => {
               <p className="feature-description">Customize every detail to match your unique vision and style.</p>
             </div>
             
-            <div className="feature-card">
+            <div className="feature-card slide-in slide-up delay-200">
               <div className="feature-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -62,7 +107,7 @@ const LandingPage = () => {
               <p className="feature-description">Keep track of all your appointments, deadlines, and important dates.</p>
             </div>
             
-            <div className="feature-card">
+            <div className="feature-card slide-in slide-up delay-400">
               <div className="feature-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -78,9 +123,9 @@ const LandingPage = () => {
         </section>
         
         <section className="testimonials-section">
-          <h2 className="section-title">Happy Couples</h2>
+          <h2 className="section-title slide-in slide-up">Happy Couples</h2>
           <div className="testimonials-carousel">
-            <div className="testimonial-card">
+            <div className="testimonial-card slide-in slide-up">
               <div className="testimonial-image">
                 <img src="https://images.unsplash.com/photo-1623091410901-00e2d268901f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Happy couple" />
               </div>
@@ -93,7 +138,7 @@ const LandingPage = () => {
         </section>
         
         <section className="cta-section">
-          <div className="cta-content">
+          <div className="cta-content slide-in slide-up">
             <h2 className="cta-title">Begin Your Journey Together</h2>
             <p className="cta-description">Create your account today and start planning the wedding of your dreams.</p>
             <Link to="/auth" className="cta-button">Get Started Now</Link>
@@ -103,14 +148,14 @@ const LandingPage = () => {
       
       <footer className="landing-footer">
         <div className="footer-content">
-          <div className="footer-logo">Eternal Love</div>
-          <div className="footer-links">
+          <div className="footer-logo slide-in slide-left">Eternal Love</div>
+          <div className="footer-links slide-in slide-up">
             <a href="#" className="footer-link">About Us</a>
             <a href="#" className="footer-link">Contact</a>
             <a href="#" className="footer-link">Privacy Policy</a>
             <a href="#" className="footer-link">Terms of Service</a>
           </div>
-          <div className="footer-social">
+          <div className="footer-social slide-in slide-right">
             <a href="#" className="social-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
@@ -130,7 +175,7 @@ const LandingPage = () => {
             </a>
           </div>
         </div>
-        <div className="footer-bottom">
+        <div className="footer-bottom slide-in slide-up">
           <p>© 2025 Eternal Love. All rights reserved.</p>
         </div>
       </footer>
@@ -138,4 +183,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage; 
+export default LandingPage;
