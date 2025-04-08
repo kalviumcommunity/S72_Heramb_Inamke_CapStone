@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const WeddingSchema = new Schema({
@@ -106,4 +106,5 @@ WeddingSchema.methods.addPhoto = function(photoData) {
   return this.save();
 };
 
-module.exports = mongoose.model('Wedding', WeddingSchema); 
+const Wedding = mongoose.model('Wedding', WeddingSchema);
+export default Wedding; 

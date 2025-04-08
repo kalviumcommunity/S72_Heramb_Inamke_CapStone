@@ -1,4 +1,5 @@
 import Task from '../models/Task.js';
+import logger from '../config/logger.js';
 
 // Read: Get all tasks from the database
 export const getTasks = async (req, res) => {
@@ -6,9 +7,18 @@ export const getTasks = async (req, res) => {
     const tasks = await Task.find({ assignedTo: req.user._id })
       .populate('wedding', 'date venue')
       .sort({ dueDate: 1 });
-    res.json(tasks);
+    res.json({
+      success: true,
+      count: tasks.length,
+      tasks
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching tasks", error: error.message });
+    logger.error(`Get tasks error: ${error.message}`);
+    res.status(500).json({ 
+      success: false,
+      error: 'Error fetching tasks',
+      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 
@@ -27,9 +37,20 @@ export const createTask = async (req, res) => {
 
     const savedTask = await newTask.save();
     await savedTask.populate('wedding', 'date venue');
-    res.status(201).json(savedTask);
+    
+    logger.info(`New task created by user ${req.user._id}`);
+    
+    res.status(201).json({
+      success: true,
+      task: savedTask
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error creating task", error: error.message });
+    logger.error(`Create task error: ${error.message}`);
+    res.status(500).json({ 
+      success: false,
+      error: 'Error creating task',
+      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 
@@ -42,12 +63,23 @@ export const getTask = async (req, res) => {
     }).populate('wedding', 'date venue');
 
     if (!task) {
-      return res.status(404).json({ message: 'Task not found' });
+      return res.status(404).json({
+        success: false,
+        error: 'Task not found'
+      });
     }
 
-    res.json(task);
+    res.json({
+      success: true,
+      task
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching task", error: error.message });
+    logger.error(`Get task error: ${error.message}`);
+    res.status(500).json({ 
+      success: false,
+      error: 'Error fetching task',
+      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 
@@ -61,11 +93,55 @@ export const updateTask = async (req, res) => {
     ).populate('wedding', 'date venue');
 
     if (!task) {
-      return res.status(404).json({ message: 'Task not found' });
+      return res.status(404).json({
+        success: false,
+        error: 'Task not found'
+      });
     }
 
-    res.json(task);
+    logger.info(`Task ${req.params.id} updated by user ${req.user._id}`);
+
+    res.json({
+      success: true,
+      task
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error updating task", error: error.message });
+    logger.error(`Update task error: ${error.message}`);
+    res.status(500).json({ 
+      success: false,
+      error: 'Error updating task',
+      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+};
+
+// Delete task
+export const deleteTask = async (req, res) => {
+  try {
+    const task = await Task.findOneAndDelete({
+      _id: req.params.id,
+      assignedTo: req.user._id
+    });
+
+    if (!task) {
+      return res.status(404).json({
+        success: false,
+        error: 'Task not found'
+      });
+    }
+
+    logger.info(`Task ${req.params.id} deleted by user ${req.user._id}`);
+
+    res.json({
+      success: true,
+      data: {}
+    });
+  } catch (error) {
+    logger.error(`Delete task error: ${error.message}`);
+    res.status(500).json({ 
+      success: false,
+      error: 'Error deleting task',
+      message: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
