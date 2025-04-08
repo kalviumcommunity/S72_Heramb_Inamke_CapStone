@@ -49,7 +49,7 @@ const Dashboard = () => {
           <div className="logo">Eternal Love</div>
           <div className="user-info">
             <img 
-              src={user?.photoURL || "https://via.placeholder.com/40"} 
+              src={user?.photoURL || "https://ui-avatars.com/api/?size=40&name=User"} 
               alt="User" 
               className="user-avatar" 
             />

@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from "react";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { auth, googleProvider } from "../firebaseconfig";
-import { 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  signInWithPopup, 
-  signOut 
-} from "firebase/auth";
 import useAuth from "../useAuth";
 import { useNavigate } from "react-router-dom";
 import "./styles/AuthStyles.css";
 
 const AuthPage = () => {
-  const user = useAuth();
+  const { user, loading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   
-  // Redirect to dashboard if already logged in
+  // Only redirect if we're on the client side and not loading
   useEffect(() => {
-    if (user) {
+    if (typeof window !== 'undefined' && !loading && user) {
       navigate("/dashboard");
     }
-  }, [user, navigate]);
+  }, [user, loading, navigate]);
 
-  // Email/Password Sign-Up
+  // Only render auth UI if we're on the client side
+  if (typeof window === 'undefined') {
+    return <div>Loading...</div>;
+  }
+
   const handleSignUp = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
@@ -33,7 +32,6 @@ const AuthPage = () => {
     }
   };
 
-  // Email/Password Sign-In
   const handleSignIn = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -43,7 +41,6 @@ const AuthPage = () => {
     }
   };
 
-  // Google Sign-In
   const handleGoogleSignIn = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
@@ -53,7 +50,6 @@ const AuthPage = () => {
     }
   };
 
-  // Sign-Out
   const handleSignOut = async () => {
     try {
       await signOut(auth);
@@ -63,9 +59,12 @@ const AuthPage = () => {
     }
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="auth-container">
-      {/* Decorative elements */}
       <div className="decorative-flower flower-top-left">
         <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <path fill="#d88c8c" d="M50,0 C60,30 70,40 100,50 C70,60 60,70 50,100 C40,70 30,60 0,50 C30,40 40,30 50,0 Z" />
@@ -84,7 +83,7 @@ const AuthPage = () => {
           <div className="user-card">
             <div className="profile-image-container">
               <img 
-                src={user.photoURL || "https://via.placeholder.com/100"} 
+                src={user.photoURL || "https://ui-avatars.com/api/?size=100&name=User"} 
                 alt="User Profile" 
                 className="profile-image" 
               />
