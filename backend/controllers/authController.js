@@ -3,6 +3,15 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import logger from '../config/logger.js';
 
+// Generate JWT Token
+const generateToken = (id, role) => {
+  return jwt.sign(
+    { id, role },
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_EXPIRE }
+  );
+};
+
 // Register new user
 export const register = async (req, res) => {
   try {
@@ -32,11 +41,7 @@ export const register = async (req, res) => {
     await user.save();
 
     // Generate JWT token
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: '30d' }
-    );
+    const token = generateToken(user._id, user.role);
 
     logger.info(`New user registered: ${email}`);
 
@@ -84,11 +89,7 @@ export const login = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: '30d' }
-    );
+    const token = generateToken(user._id, user.role);
 
     logger.info(`User logged in: ${email}`);
 
@@ -135,4 +136,4 @@ export const getCurrentUser = async (req, res) => {
       message: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
-}; 
+};
