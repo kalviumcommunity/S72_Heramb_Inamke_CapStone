@@ -1,1 +1,3 @@
 {"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-04-12 20:23:58"}
+{"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-04-13 17:14:54"}
+{"level":"info","message":{"duration":"6ms","ip":"::1","method":"POST","status":404,"url":"/api/tasks/","userAgent":"bruno-runtime/1.40.0"},"service":"wedding-planner-api","timestamp":"2025-04-13 17:15:08"}
