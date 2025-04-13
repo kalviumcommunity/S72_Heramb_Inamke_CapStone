@@ -18,21 +18,27 @@ export const protect = async (req, res, next) => {
       });
     }
 
-    // Verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    try {
+      // Verify token
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Get user from token
-    const user = await User.findById(decoded.id).select('-password');
+      // Get user from token
+      const user = await User.findById(decoded.id).select('-password');
+      if (!user) {
+        return res.status(401).json({
+          success: false,
+          error: 'User not found'
+        });
+      }
 
-    if (!user) {
+      req.user = user;
+      next();
+    } catch (error) {
       return res.status(401).json({
         success: false,
-        error: 'User not found'
+        error: 'Token is not valid'
       });
     }
-
-    req.user = user;
-    next();
   } catch (error) {
     logger.error(`Auth middleware error: ${error.message}`);
     res.status(401).json({
