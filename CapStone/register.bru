@@ -1,0 +1,19 @@
+meta {
+  name: register
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:5000/api/auth
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "dasdwas@g.com",
+    "password": "hashed"
+  }
+  
+}

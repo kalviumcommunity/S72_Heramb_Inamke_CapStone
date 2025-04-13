@@ -1,0 +1,11 @@
+meta {
+  name: AUTH
+  type: http
+  seq: 4
+}
+
+post {
+  url: https://localhost:5000/api/v1/tasks/
+  body: json
+  auth: inherit
+}
