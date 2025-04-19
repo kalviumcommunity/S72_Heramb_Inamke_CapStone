@@ -11,7 +11,22 @@ const handleResponse = async (response) => {
   }
   return data;
 };
+export const getGuestsByWedding = async (weddingId) => {
+  try {
+    const token = getAuthToken();
+    if (!token) throw new Error('No auth token');
 
+    const response = await fetch(`${API_URL}/guests/wedding/${weddingId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    return handleResponse(response);
+  } catch (error) {
+    console.error('Get guests error:', error);
+    throw error;
+  }
+};
 // Auth API calls
 export const login = async (credentials) => {
   try {
@@ -29,6 +44,44 @@ export const login = async (credentials) => {
     return data;
   } catch (error) {
     console.error('Login error:', error);
+    throw error;
+  }
+};
+
+export const updateGuest = async (guestId, guestData) => {
+  try {
+    const token = getAuthToken();
+    if (!token) throw new Error('No auth token');
+
+    const response = await fetch(`${API_URL}/guests/${guestId}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(guestData),
+    });
+    return handleResponse(response);
+  } catch (error) {
+    console.error('Update guest error:', error);
+    throw error;
+  }
+};
+
+export const deleteGuest = async (guestId) => {
+  try {
+    const token = getAuthToken();
+    if (!token) throw new Error('No auth token');
+
+    const response = await fetch(`${API_URL}/guests/${guestId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+    return handleResponse(response);
+  } catch (error) {
+    console.error('Delete guest error:', error);
     throw error;
   }
 };
