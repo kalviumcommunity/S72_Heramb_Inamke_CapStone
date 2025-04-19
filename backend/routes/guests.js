@@ -1,5 +1,5 @@
 import express from 'express';
-import { getGuests, updateRSVP } from '../controllers/guestController.js';
+import { getGuests, updateRSVP, updateGuest, deleteGuest } from '../controllers/guestController.js';
 import { protect } from '../middleware/auth.js';
 import { validateRSVP, validate } from '../middleware/validation.js';
 
@@ -13,5 +13,11 @@ router.get('/wedding/:weddingId', getGuests);
 
 // Update guest RSVP
 router.put('/wedding/:weddingId/rsvp', validateRSVP, validate, updateRSVP);
+
+// Update a guest
+router.put('/:guestId', protect, updateGuest);
+
+// Delete a guest
+router.delete('/:guestId', protect, deleteGuest);
 
 export default router;

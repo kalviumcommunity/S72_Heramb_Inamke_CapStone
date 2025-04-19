@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseconfig";
 import useAuth from "../../useAuth";
 import "../styles/DashboardStyles.css";
+import { getGuestsByWedding, updateGuest, deleteGuest } from "../api";
 
 const Dashboard = () => {
   const user = useAuth();
   const navigate = useNavigate();
   const [activeModule, setActiveModule] = useState("overview");
+  const [guests, setGuests] = useState([]);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
   // Placeholder data for demonstration
   const weddingDate = new Date(2024, 5, 15); // June 15, 2024
@@ -17,8 +20,58 @@ const Dashboard = () => {
   const spentBudget = 12450;
   const guestCount = 120;
   const confirmedGuests = 78;
+  const [currentGuest, setCurrentGuest] = useState({
+    _id: "",
+    name: "",
+    email: "",
+    phone: "",
+    status: "",
+    partySize: 1,
+  });
   const pendingTasks = 12;
   const completedTasks = 34;
+
+  useEffect(() => {
+    if (user) {
+      fetchGuests();
+    }
+  }, [user]);
+
+  const fetchGuests = async () => {
+    try {
+      // Assuming wedding ID is available in user context or elsewhere
+      const weddingId = "66718a9c776a750978e6f776";
+      const guestsData = await getGuestsByWedding(weddingId);
+      setGuests(guestsData);
+    } catch (error) {
+      console.error("Error fetching guests:", error);
+    }
+  };
+
+  const handleOpenUpdateModal = (guest) => {
+    setCurrentGuest(guest);
+    setIsUpdateModalOpen(true);
+  };
+
+  const handleCloseUpdateModal = () => {
+    setIsUpdateModalOpen(false);
+    setCurrentGuest({});
+  };
+
+  const handleUpdateGuest = async () => {
+    try {
+      await updateGuest(currentGuest._id, currentGuest);
+      handleCloseUpdateModal();
+      fetchGuests();
+    } catch (error) {
+      console.error("Error updating guest:", error);
+    }
+  };
+
+  const handleDeleteGuest = async (guestId) => {
+    await deleteGuest(guestId);
+    fetchGuests();
+  };
 
   const handleSignOut = async () => {
     try {
@@ -42,7 +95,7 @@ const Dashboard = () => {
           <path fill="#d88c8c" d="M50,0 C60,30 70,40 100,50 C70,60 60,70 50,100 C40,70 30,60 0,50 C30,40 40,30 50,0 Z" />
         </svg>
       </div>
-      
+
       {/* Sidebar */}
       <aside className="dashboard-sidebar">
         <div className="sidebar-header">
@@ -56,11 +109,11 @@ const Dashboard = () => {
             <span className="user-name">{user?.displayName || "Couple"}</span>
           </div>
         </div>
-        
+
         <nav className="sidebar-nav">
-          <button 
-            className={`nav-item ${activeModule === "overview" ? "active" : ""}`}
-            onClick={() => setActiveModule("overview")}
+          <button
+            className={`nav-item ${activeModule === "overview" ? "active" : ""
+              }`} onClick={() => setActiveModule("overview")}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="3" y="3" width="7" height="7"></rect>
@@ -70,10 +123,10 @@ const Dashboard = () => {
             </svg>
             Dashboard Overview
           </button>
-          
-          <button 
-            className={`nav-item ${activeModule === "budget" ? "active" : ""}`}
-            onClick={() => setActiveModule("budget")}
+
+          <button
+            className={`nav-item ${activeModule === "budget" ? "active" : ""
+              }`} onClick={() => setActiveModule("budget")}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="12" y1="1" x2="12" y2="23"></line>
@@ -81,10 +134,10 @@ const Dashboard = () => {
             </svg>
             Budget Tracker
           </button>
-          
-          <button 
-            className={`nav-item ${activeModule === "guests" ? "active" : ""}`}
-            onClick={() => setActiveModule("guests")}
+
+          <button
+            className={`nav-item ${activeModule === "guests" ? "active" : ""
+              }`} onClick={() => setActiveModule("guests")}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -94,10 +147,10 @@ const Dashboard = () => {
             </svg>
             Guest List Manager
           </button>
-          
-          <button 
-            className={`nav-item ${activeModule === "vendors" ? "active" : ""}`}
-            onClick={() => setActiveModule("vendors")}
+
+          <button
+            className={`nav-item ${activeModule === "vendors" ? "active" : ""
+              }`} onClick={() => setActiveModule("vendors")}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -105,10 +158,10 @@ const Dashboard = () => {
             </svg>
             Vendor Directory
           </button>
-          
-          <button 
-            className={`nav-item ${activeModule === "destination" ? "active" : ""}`}
-            onClick={() => setActiveModule("destination")}
+
+          <button
+            className={`nav-item ${activeModule === "destination" ? "active" : ""
+              }`} onClick={() => setActiveModule("destination")}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
@@ -118,7 +171,7 @@ const Dashboard = () => {
             Destination Wedding
           </button>
         </nav>
-        
+
         <div className="sidebar-footer">
           <button onClick={handleSignOut} className="nav-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -130,7 +183,7 @@ const Dashboard = () => {
           </button>
         </div>
       </aside>
-      
+
       {/* Main Content */}
       <main className="dashboard-main">
         <header className="dashboard-header">
@@ -146,7 +199,7 @@ const Dashboard = () => {
             <div className="countdown-label">Days until your wedding</div>
           </div>
         </header>
-        
+
         <div className="dashboard-content">
           {/* Overview Module */}
           {activeModule === "overview" && (
@@ -168,7 +221,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="stat-card">
                   <div className="stat-icon guests-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -187,7 +240,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="stat-card">
                   <div className="stat-icon tasks-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -208,7 +261,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="recent-activity">
                 <h2 className="section-title">Recent Activity</h2>
                 <div className="activity-list">
@@ -227,7 +280,7 @@ const Dashboard = () => {
                       <div className="activity-time">2 hours ago</div>
                     </div>
                   </div>
-                  
+
                   <div className="activity-item">
                     <div className="activity-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -240,7 +293,7 @@ const Dashboard = () => {
                       <div className="activity-time">Yesterday</div>
                     </div>
                   </div>
-                  
+
                   <div className="activity-item">
                     <div className="activity-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -310,7 +363,7 @@ const Dashboard = () => {
               </div>
             </div>
           )}
-          
+
           {/* Guest List Manager Module */}
           {activeModule === "guests" && (
             <div className="guests-module">
@@ -335,7 +388,7 @@ const Dashboard = () => {
                   <div className="guest-stat-label">Declined</div>
                 </div>
               </div>
-              
+
               <div className="guest-list-container">
                 <div className="guest-list-header">
                   <h2 className="section-title">Guest List</h2>
@@ -344,32 +397,103 @@ const Dashboard = () => {
                     <button className="add-guest-button">Add Guest</button>
                   </div>
                 </div>
-                
-                <table className="guest-table">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Status</th>
-                      <th>Party Size</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>John & Sarah Smith</td>
-                      <td>john.smith@example.com</td>
-                      <td>(555) 123-4567</td>
-                      <td><span className="status-confirmed">Confirmed</span></td>
-                      <td>2</td>
-                      <td className="guest-actions">
-                        <button className="action-button edit-button">Edit</button>
-                        <button className="action-button delete-button">Delete</button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+
+                {guests.length > 0 ? (
+                  <table className="guest-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th>Party Size</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {guests.map((guest) => (
+                        <tr key={guest._id}>
+                          <td>{guest.name}</td>
+                          <td>{guest.email}</td>
+                          <td>{guest.phone}</td>
+                          <td>
+                            <span
+                              className={`status-${
+                                guest.status === "confirmed"
+                                  ? "confirmed"
+                                  : guest.status === "pending"
+                                  ? "pending"
+                                  : "declined"
+                              }`}
+                            >
+                              {guest.status}
+                            </span>
+                          </td>
+                          <td>{guest.partySize}</td>
+                          <td className="guest-actions">
+                            <button
+                              className="action-button edit-button"
+                              onClick={() => handleOpenUpdateModal(guest)}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="action-button delete-button"
+                              onClick={() => handleDeleteGuest(guest._id)}
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p>No guests found. Add a guest to get started!</p>
+                )}
+                {isUpdateModalOpen && (
+                  <div className="modal">
+                    <div className="modal-content">
+                      <span className="close-button" onClick={handleCloseUpdateModal}>
+                        &times;
+                      </span>
+                      <h2>Update Guest</h2>
+                      <label>Name:</label>
+                      <input
+                        type="text"
+                        value={currentGuest.name}
+                        onChange={(e) =>
+                          setCurrentGuest({ ...currentGuest, name: e.target.value })
+                        }
+                      />
+                      <label>Email:</label>
+                      <input
+                        type="email"
+                        value={currentGuest.email}
+                        onChange={(e) =>
+                          setCurrentGuest({ ...currentGuest, email: e.target.value })
+                        }
+                      />
+                      <label>Phone:</label>
+                      <input
+                        type="text"
+                        value={currentGuest.phone}
+                        onChange={(e) =>
+                          setCurrentGuest({ ...currentGuest, phone: e.target.value })
+                        }
+                      />
+                      <label>Party Size:</label>
+                      <input
+                        type="number"
+                        value={currentGuest.partySize}
+                        onChange={(e) =>
+                          setCurrentGuest({ ...currentGuest, partySize: e.target.value })
+                        }
+                      />
+                      <button onClick={handleUpdateGuest}>Update</button>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -384,13 +508,28 @@ const Dashboard = () => {
                 <button className="vendor-category">Photography</button>
                 <button className="vendor-category">Florists</button>
               </div>
-              
+
               <div className="vendor-search">
                 <input type="text" placeholder="Search vendors..." className="vendor-search-input" />
                 <button className="vendor-search-button">Search</button>
               </div>
-              
+
               <div className="vendor-grid">
+                <div className="vendor-card">
+                  <div className="vendor-image">
+                    <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Elegant Events Venue" />
+                  </div>
+                  <div className="vendor-info">
+                    <h3 className="vendor-name">Elegant Events Venue</h3>
+                    <div className="vendor-category-tag">Venue</div>
+                    <div className="vendor-rating">
+                      <span className="stars">★★★★★</span>
+                      <span className="rating-count">(48 reviews)</span>
+                    </div>
+                    <p className="vendor-description">A beautiful waterfront venue with stunning views and elegant ballrooms.</p>
+                    <button className="vendor-contact-button">Contact</button>
+                  </div>
+                </div>
                 <div className="vendor-card">
                   <div className="vendor-image">
                     <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Elegant Events Venue" />
@@ -417,7 +556,7 @@ const Dashboard = () => {
                 <h2 className="section-title">Popular Wedding Destinations</h2>
                 <p className="destination-subtitle">Explore beautiful locations for your dream destination wedding</p>
               </div>
-              
+
               <div className="destination-grid">
                 <div className="destination-card">
                   <div className="destination-image">
