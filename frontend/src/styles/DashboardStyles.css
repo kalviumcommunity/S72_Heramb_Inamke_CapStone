@@ -1003,4 +1003,9 @@
   .destination-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.wedding-date-input:hover {
+  border-color: #d88c8c;
+  transition: border-color 0.3s ease;
 } 
