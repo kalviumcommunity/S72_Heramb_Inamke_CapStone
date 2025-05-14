@@ -1008,4 +1008,135 @@
 .wedding-date-input:hover {
   border-color: #d88c8c;
   transition: border-color 0.3s ease;
+}
+
+/* --- Improved Dashboard Card and Grid Styles --- */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.dashboard-card {
+  background: #fff;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 32px rgba(216, 140, 140, 0.08), 0 1.5px 6px rgba(0,0,0,0.03);
+  padding: 2.5rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.18s cubic-bezier(.4,0,.2,1), box-shadow 0.18s cubic-bezier(.4,0,.2,1);
+  border: 1.5px solid #f5d0d0;
+  min-height: 220px;
+  position: relative;
+}
+.dashboard-card:hover {
+  transform: translateY(-6px) scale(1.025);
+  box-shadow: 0 16px 40px rgba(216, 140, 140, 0.13), 0 2px 8px rgba(0,0,0,0.06);
+  border-color: #d88c8c;
+}
+
+.dashboard-card h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #9d4e4e;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.01em;
+}
+
+.dashboard-card p {
+  color: #6b4c4c;
+  font-size: 1.05rem;
+  margin: 0.25rem 0;
+  letter-spacing: 0.01em;
+}
+
+/* --- Improved Input Styles --- */
+.dashboard-card input[type="number"],
+.dashboard-card input[type="date"] {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.7rem;
+  border: 1.5px solid #f5d0d0;
+  border-radius: 0.7rem;
+  font-size: 1rem;
+  background: #faf5f5;
+  color: #9d4e4e;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  box-shadow: 0 1px 2px rgba(216, 140, 140, 0.03);
+}
+.dashboard-card input[type="number"]:focus,
+.dashboard-card input[type="date"]:focus {
+  border-color: #d88c8c;
+  box-shadow: 0 0 0 2px #f5d0d0;
+  background: #fff;
+}
+.dashboard-card input[type="number"]::-webkit-inner-spin-button,
+.dashboard-card input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.wedding-date-placeholder {
+  color: #bfa6a6;
+  font-size: 0.98rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+  animation: fadeIn 1.2s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.task-input {
+  margin-bottom: 0.5rem;
+}
+
+/* --- Button Styles (if you add buttons) --- */
+.dashboard-card button {
+  background: #d88c8c;
+  color: #fff;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+  box-shadow: 0 2px 8px rgba(216, 140, 140, 0.08);
+}
+.dashboard-card button:hover {
+  background: #9d4e4e;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px rgba(216, 140, 140, 0.13);
+}
+
+/* --- Whitespace and Clean Layout --- */
+.dashboard-content {
+  background-color: #fff;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 32px rgba(216, 140, 140, 0.08), 0 1.5px 6px rgba(0,0,0,0.03);
+  padding: 3rem 2.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-main {
+    padding: 1rem;
+  }
+  .dashboard-content {
+    padding: 1.2rem 0.5rem;
+  }
+  .dashboard-grid {
+    gap: 1.2rem;
+  }
+  .dashboard-card {
+    padding: 1.2rem 0.7rem 1rem 0.7rem;
+  }
 } 
