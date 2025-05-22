@@ -5,3 +5,13 @@
 {"level":"info","message":{"duration":"2ms","ip":"::1","method":"POST","status":404,"url":"/api/tasks/","userAgent":"bruno-runtime/2.1.0"},"service":"wedding-planner-api","timestamp":"2025-04-13 17:24:45"}
 {"level":"info","message":{"duration":"1ms","ip":"::1","method":"POST","status":404,"url":"/api/auth","userAgent":"bruno-runtime/2.1.0"},"service":"wedding-planner-api","timestamp":"2025-04-13 17:24:58"}
 {"level":"info","message":{"duration":"1ms","ip":"::1","method":"GET","status":200,"url":"/","userAgent":"bruno-runtime/2.1.0"},"service":"wedding-planner-api","timestamp":"2025-04-13 17:25:01"}
+{"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-05-22 17:16:33"}
+{"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-05-22 17:36:03"}
+{"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-05-22 17:43:38"}
+{"address":"127.0.0.1","code":"ESOCKET","command":"CONN","errno":-4078,"level":"error","message":"SMTP connection error: connect ECONNREFUSED 127.0.0.1:587","port":587,"service":"wedding-planner-api","stack":"Error: connect ECONNREFUSED 127.0.0.1:587\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1634:16)","syscall":"connect","timestamp":"2025-05-22 17:43:39"}
+{"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-05-22 17:43:49"}
+{"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-05-22 17:44:02"}
+{"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-05-22 17:49:25"}
+{"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-05-22 17:56:42"}
+{"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-05-22 17:56:58"}
+{"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-05-22 17:57:02"}
