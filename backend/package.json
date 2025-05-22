@@ -6,7 +6,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "lint": "eslint .",
-    "test": "jest",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --forceExit --detectOpenHandles",
     "migrate": "node scripts/migrate.js",
     "seed": "node scripts/seed.js"
   },
@@ -44,6 +44,7 @@
   "devDependencies": {
     "eslint": "^8.56.0",
     "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.1.4",
     "nodemon": "^3.0.2",
     "supertest": "^6.3.3"
   }

@@ -15,3 +15,27 @@
 {"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-05-22 17:56:42"}
 {"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-05-22 17:56:58"}
 {"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-05-22 17:57:02"}
+{"level":"info","message":{"duration":"3ms","ip":"::ffff:127.0.0.1","method":"POST","status":404,"url":"/api/auth/login"},"service":"wedding-planner-api","timestamp":"2025-05-22 20:38:19"}
+{"level":"info","message":{"duration":"1ms","ip":"::ffff:127.0.0.1","method":"POST","status":404,"url":"/api/tasks"},"service":"wedding-planner-api","timestamp":"2025-05-22 20:38:19"}
+{"level":"info","message":{"duration":"2ms","ip":"::ffff:127.0.0.1","method":"POST","status":404,"url":"/api/tasks"},"service":"wedding-planner-api","timestamp":"2025-05-22 20:38:19"}
+{"level":"info","message":{"duration":"0ms","ip":"::ffff:127.0.0.1","method":"GET","status":404,"url":"/api/tasks"},"service":"wedding-planner-api","timestamp":"2025-05-22 20:38:20"}
+{"level":"info","message":{"duration":"0ms","ip":"::ffff:127.0.0.1","method":"GET","status":404,"url":"/api/tasks/682f3de495f5f5e032a387af"},"service":"wedding-planner-api","timestamp":"2025-05-22 20:38:20"}
+{"level":"info","message":{"duration":"0ms","ip":"::ffff:127.0.0.1","method":"GET","status":404,"url":"/api/tasks/682f3de495f5f5e032a387b2"},"service":"wedding-planner-api","timestamp":"2025-05-22 20:38:20"}
+{"level":"info","message":{"duration":"0ms","ip":"::ffff:127.0.0.1","method":"PUT","status":404,"url":"/api/tasks/682f3de495f5f5e032a387b4"},"service":"wedding-planner-api","timestamp":"2025-05-22 20:38:20"}
+{"level":"info","message":{"duration":"0ms","ip":"::ffff:127.0.0.1","method":"DELETE","status":404,"url":"/api/tasks/682f3de495f5f5e032a387b7"},"service":"wedding-planner-api","timestamp":"2025-05-22 20:38:20"}
+{"level":"info","message":"MongoDB Connected: cluster0-shard-00-00.n2ztx.mongodb.net","service":"wedding-planner-api","timestamp":"2025-05-22 20:57:10"}
+{"level":"warn","message":"MongoDB disconnected","service":"wedding-planner-api","timestamp":"2025-05-22 20:57:10"}
+{"level":"info","message":"User logged in: test@example.com","service":"wedding-planner-api","timestamp":"2025-05-22 20:58:09"}
+{"level":"info","message":{"duration":"191ms","ip":"::ffff:127.0.0.1","method":"POST","status":200,"url":"/login"},"service":"wedding-planner-api","timestamp":"2025-05-22 20:58:09"}
+{"level":"error","message":"Create task error: Task validation failed: dueDate: Due date must be in the future","service":"wedding-planner-api","timestamp":"2025-05-22 20:58:09"}
+{"level":"info","message":{"duration":"28ms","ip":"::ffff:127.0.0.1","method":"POST","status":500,"url":"/"},"service":"wedding-planner-api","timestamp":"2025-05-22 20:58:09"}
+{"level":"error","message":"Create task error: Task validation failed: title: Title is required, dueDate: Due date must be in the future, wedding: Wedding is required","service":"wedding-planner-api","timestamp":"2025-05-22 20:58:09"}
+{"level":"info","message":{"duration":"22ms","ip":"::ffff:127.0.0.1","method":"POST","status":500,"url":"/"},"service":"wedding-planner-api","timestamp":"2025-05-22 20:58:09"}
+{"level":"info","message":{"duration":"17ms","ip":"::ffff:127.0.0.1","method":"GET","status":404,"url":"/682f428947fc06706bc7df54"},"service":"wedding-planner-api","timestamp":"2025-05-22 20:58:09"}
+{"level":"info","message":"User logged in: test@example.com","service":"wedding-planner-api","timestamp":"2025-05-22 21:00:27"}
+{"level":"info","message":{"duration":"174ms","ip":"::ffff:127.0.0.1","method":"POST","status":200,"url":"/login"},"service":"wedding-planner-api","timestamp":"2025-05-22 21:00:27"}
+{"level":"error","message":"Create task error: Task validation failed: dueDate: Due date must be in the future","service":"wedding-planner-api","timestamp":"2025-05-22 21:00:27"}
+{"level":"info","message":{"duration":"29ms","ip":"::ffff:127.0.0.1","method":"POST","status":500,"url":"/"},"service":"wedding-planner-api","timestamp":"2025-05-22 21:00:27"}
+{"level":"error","message":"Create task error: Task validation failed: title: Title is required, dueDate: Due date must be in the future, wedding: Wedding is required","service":"wedding-planner-api","timestamp":"2025-05-22 21:00:27"}
+{"level":"info","message":{"duration":"20ms","ip":"::ffff:127.0.0.1","method":"POST","status":500,"url":"/"},"service":"wedding-planner-api","timestamp":"2025-05-22 21:00:27"}
+{"level":"info","message":{"duration":"18ms","ip":"::ffff:127.0.0.1","method":"GET","status":404,"url":"/682f4313003087d537b2eced"},"service":"wedding-planner-api","timestamp":"2025-05-22 21:00:27"}

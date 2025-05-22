@@ -18,6 +18,11 @@ const userSchema = new Schema({
     trim: true,
     match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email']
   },
+  apiKey: {
+    type: String,
+    unique: true,
+    sparse: true
+  },
   password: { 
     type: String, 
     required: [true, 'Password is required'],
