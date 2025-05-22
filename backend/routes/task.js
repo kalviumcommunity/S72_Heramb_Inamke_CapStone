@@ -7,26 +7,25 @@ import {
   deleteTask
 } from '../controllers/taskController.js';
 import { protect } from '../middleware/auth.js';
-import { validateTask, validate } from '../middleware/validation.js';
 
 const router = express.Router();
 
 // All routes are protected
 router.use(protect);
 
-// Get all tasks for the current user
+// GET /api/tasks - Get all tasks
 router.get('/', getTasks);
 
-// Get single task
+// GET /api/tasks/:id - Get single task
 router.get('/:id', getTask);
 
-// Create task
-router.post('/', validateTask, validate, createTask);
+// POST /api/tasks - Create new task
+router.post('/', createTask);
 
-// Update task
-router.put('/:id', validateTask, validate, updateTask);
+// PUT /api/tasks/:id - Update task
+router.put('/:id', updateTask);
 
-// Delete task
+// DELETE /api/tasks/:id - Delete task
 router.delete('/:id', deleteTask);
 
 export default router;
