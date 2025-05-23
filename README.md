@@ -56,12 +56,18 @@ Planning a wedding can be overwhelming, but WedWise is here to make it effortles
 - **📱 Mobile App:** Plan on the go with an intuitive mobile version.
 
 ## 🛠 Tech Stack
-- **Frontend:** React.js / Angular + Material-UI
-- **Backend:** Node.js + Express.js / Python Django
-- **Database:** MongoDB / PostgreSQL
-- **Deployment:** AWS / GCP
+- **Frontend:** React.js + Tailwind CSS
+- **Backend:** Node.js + Express.js
+- **Database:** MongoDB
+- **Cache:** Redis
+- **Deployment:** 
+  - Frontend: Vercel
+  - Backend: Render
 - **Testing:** Jest for unit and integration testing
-- **Extras:** Firebase (real-time RSVP updates), Twilio (SMS reminders)
+- **Extras:** 
+  - Firebase (real-time RSVP updates)
+  - Twilio (SMS reminders)
+  - Redis (caching and session management)
 
 ## 🎯 Why WedWise?
 - **Stress-Free Planning:** Keep everything in one place.
@@ -181,6 +187,7 @@ The easiest way to run WedWise is using Docker. Make sure you have Docker and Do
 - Docker
 - Docker Compose
 - MongoDB (local or Atlas)
+- Redis (local or cloud instance)
 
 ### Environment Setup
 1. Create a `.env` file in the root directory with the following variables:
@@ -198,6 +205,9 @@ CORS_ORIGIN=http://localhost:5173
 
 # Frontend Configuration
 VITE_API_URL=http://localhost:5000
+
+# Redis Configuration
+REDIS_URL=redis://localhost:6379
 ```
 
 ### Running with Docker
@@ -226,7 +236,7 @@ docker-compose up --build backend  # or frontend
 ```
 
 ### Docker Architecture
-The application is containerized into two main services:
+The application is containerized into three main services:
 
 1. **Backend Service**
    - Node.js/Express API
@@ -235,6 +245,7 @@ The application is containerized into two main services:
      - Hot-reloading for development
      - Health checks
      - MongoDB connection
+     - Redis caching
      - JWT authentication
 
 2. **Frontend Service**
@@ -245,10 +256,23 @@ The application is containerized into two main services:
      - Connected to backend API
      - Development mode enabled
 
+3. **Redis Service**
+   - Redis server
+   - Port: 6379
+   - Features:
+     - Session management
+     - API response caching
+     - Rate limiting support
+
 ### Docker Features
 - Multi-stage builds for optimized images
 - Non-root users for security
-- Volume mounts for development
-- Health checks for monitoring
-- Network isolation
-- Environment variable management
+- Redis caching for improved performance
+- Health checks for all services
+
+### Performance Optimizations
+- Redis caching for frequently accessed data
+- Rate limiting to prevent abuse
+- Compression middleware for reduced payload size
+- Session management with Redis
+- MongoDB connection pooling
