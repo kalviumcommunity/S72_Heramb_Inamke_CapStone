@@ -21,6 +21,7 @@ import taskRoutes from './routes/task.js';
 import guestRoutes from './routes/guests.js';
 import vendorRoutes from './routes/vendors.js';
 import weddingRoutes from './routes/wedding.js';
+import testRoutes from './routes/testRoutes.js';
 
 dotenv.config();
 
@@ -103,6 +104,9 @@ v1Router.use('/weddings', weddingRoutes);
 
 // Mount version 1 routes
 apiRouter.use('/v1', v1Router);
+
+// Mount test routes
+apiRouter.use('/test', testRoutes);
 
 // Health check route
 apiRouter.get('/health', (req, res) => {
