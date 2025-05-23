@@ -1,7 +1,7 @@
 # 🎉 WedWise - Your Smart Wedding Planning Companion
 
 ## 💍 Overview
-Planning a wedding can be overwhelming, but WedWise is here to make it effortless! Our all-in-one digital wedding planner helps couples manage everything—from setting budgets and booking venues to organizing guest lists and choosing vendors. Plus, if you're dreaming of a destination wedding, we’ve got curated options and travel suggestions just for you! 💕
+Planning a wedding can be overwhelming, but WedWise is here to make it effortless! Our all-in-one digital wedding planner helps couples manage everything—from setting budgets and booking venues to organizing guest lists and choosing vendors. Plus, if you're dreaming of a destination wedding, we've got curated options and travel suggestions just for you! 💕
 
 ## ✨ Key Features
 
@@ -60,12 +60,47 @@ Planning a wedding can be overwhelming, but WedWise is here to make it effortles
 - **Backend:** Node.js + Express.js / Python Django
 - **Database:** MongoDB / PostgreSQL
 - **Deployment:** AWS / GCP
+- **Testing:** Jest for unit and integration testing
 - **Extras:** Firebase (real-time RSVP updates), Twilio (SMS reminders)
 
 ## 🎯 Why WedWise?
 - **Stress-Free Planning:** Keep everything in one place.
 - **Scalable:** Start simple, add more features later.
 - **Destination Wedding Perks:** Stand out with curated destination wedding support.
+
+## 🧪 Testing with Jest
+The project uses Jest for comprehensive testing across both frontend and backend:
+
+### Backend Testing
+- Unit tests for controllers and services
+- Integration tests for API endpoints
+- Database interaction tests
+- Authentication flow tests
+
+### Frontend Testing
+- Component unit tests
+- Integration tests for user flows
+- API integration tests
+- State management tests
+
+### Running Tests
+```bash
+# Run backend tests
+cd backend
+npm test
+
+# Run frontend tests
+cd frontend
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+### Test Coverage
+- Backend: API endpoints, controllers, and services
+- Frontend: Components, hooks, and utilities
+- Integration: End-to-end user flows
 
 ---
 
@@ -134,8 +169,86 @@ Planning a wedding can be overwhelming, but WedWise is here to make it effortles
 - **Task & RSVP Notifications**
 - **Vendor Booking & Payments**
 
--
-
 # Deployed Link:
  - Backend :- https://wedwise-capstone.onrender.com/
  - Frontend :- https://wedwise.vercel.app/
+
+## 🚀 Quick Start with Docker
+
+The easiest way to run WedWise is using Docker. Make sure you have Docker and Docker Compose installed on your system.
+
+### Prerequisites
+- Docker
+- Docker Compose
+- MongoDB (local or Atlas)
+
+### Environment Setup
+1. Create a `.env` file in the root directory with the following variables:
+```env
+# MongoDB Connection
+MONGODB_URI=mongodb://localhost:27017/wedwise
+
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+
+# Backend Configuration
+NODE_ENV=development
+PORT=5000
+CORS_ORIGIN=http://localhost:5173
+
+# Frontend Configuration
+VITE_API_URL=http://localhost:5000
+```
+
+### Running with Docker
+1. Build and start the containers:
+```bash
+docker-compose up --build
+```
+
+2. Access the application:
+- Frontend: http://localhost:5173
+- Backend: http://localhost:5000
+
+### Docker Commands
+```bash
+# View logs
+docker-compose logs -f
+
+# Stop containers
+docker-compose down
+
+# Restart containers
+docker-compose restart
+
+# Rebuild specific service
+docker-compose up --build backend  # or frontend
+```
+
+### Docker Architecture
+The application is containerized into two main services:
+
+1. **Backend Service**
+   - Node.js/Express API
+   - Port: 5000
+   - Features:
+     - Hot-reloading for development
+     - Health checks
+     - MongoDB connection
+     - JWT authentication
+
+2. **Frontend Service**
+   - React/Vite application
+   - Port: 5173
+   - Features:
+     - Hot-reloading
+     - Connected to backend API
+     - Development mode enabled
+
+### Docker Features
+- Multi-stage builds for optimized images
+- Non-root users for security
+- Volume mounts for development
+- Health checks for monitoring
+- Network isolation
+- Environment variable management
