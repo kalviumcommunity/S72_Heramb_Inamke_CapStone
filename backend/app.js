@@ -6,7 +6,6 @@ import connectDB from './config/db.js';
 import logger from './config/logger.js';
 import { requestLogger, errorLogger } from './middleware/logger.js';
 import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
 import xss from 'xss-clean';
 import hpp from 'hpp';
@@ -14,6 +13,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
+import { generalLimiter, authLimiter, sensitiveLimiter, redisLimiter } from './middleware/rateLimiter.js';
 
 // Import routes
 import authRoutes from './routes/auth.js';
@@ -48,13 +48,20 @@ app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.'
-});
-app.use('/api/', limiter);
+// Apply general rate limiting to all routes
+app.use('/api/', generalLimiter);
+
+// Apply stricter rate limiting to auth routes
+app.use('/api/v1/auth', authLimiter);
+
+// Apply sensitive operation rate limiting
+app.use('/api/v1/weddings', sensitiveLimiter);
+app.use('/api/v1/vendors', sensitiveLimiter);
+
+// Apply Redis-based rate limiting for distributed systems
+if (process.env.NODE_ENV === 'production') {
+  app.use('/api/', redisLimiter);
+}
 
 // CORS configuration
 app.use(cors({
