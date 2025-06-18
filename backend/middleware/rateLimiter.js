@@ -1,9 +1,9 @@
 import rateLimit from 'express-rate-limit';
-import RedisStore from 'rate-limit-redis';
-import Redis from 'ioredis';
-
+// import RedisStore from 'rate-limit-redis';
+// import Redis from 'ioredis';
+// 
 // Create Redis client
-const redisClient = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
+// const redisClient = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
 
 // General API rate limiter
 export const generalLimiter = rateLimit({
@@ -51,14 +51,14 @@ export const createRoleBasedLimiter = (role) => {
 };
 
 // Redis-based rate limiter for distributed systems
-export const redisLimiter = rateLimit({
-  store: new RedisStore({
-    client: redisClient,
-    prefix: 'rate-limit:',
-  }),
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,
-  message: 'Too many requests from this IP, please try again later.',
-  standardHeaders: true,
-  legacyHeaders: false,
-}); 
+// export const redisLimiter = rateLimit({
+//   store: new RedisStore({
+//     client: redisClient,
+//     prefix: 'rate-limit:',
+//   }),
+//   windowMs: 15 * 60 * 1000, // 15 minutes
+//   max: 100,
+//   message: 'Too many requests from this IP, please try again later.',
+//   standardHeaders: true,
+//   legacyHeaders: false,
+// }); 

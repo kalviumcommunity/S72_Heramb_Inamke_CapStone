@@ -13,7 +13,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
-import { generalLimiter, authLimiter, sensitiveLimiter, redisLimiter } from './middleware/rateLimiter.js';
+import { generalLimiter, authLimiter, sensitiveLimiter } from './middleware/rateLimiter.js';
 
 // Import routes
 import authRoutes from './routes/auth.js';
@@ -57,11 +57,6 @@ app.use('/api/v1/auth', authLimiter);
 // Apply sensitive operation rate limiting
 app.use('/api/v1/weddings', sensitiveLimiter);
 app.use('/api/v1/vendors', sensitiveLimiter);
-
-// Apply Redis-based rate limiting for distributed systems
-if (process.env.NODE_ENV === 'production') {
-  app.use('/api/', redisLimiter);
-}
 
 // CORS configuration
 app.use(cors({
