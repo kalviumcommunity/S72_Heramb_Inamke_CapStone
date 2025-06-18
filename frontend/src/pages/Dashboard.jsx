@@ -195,7 +195,7 @@ const Dashboard = () => {
         {/* Sidebar */}
         <aside className="dashboard-sidebar">
           <div className="sidebar-header">
-            <div className="logo">Eternal Love</div>
+            <div className="logo">WedWise</div>
             <div className="user-info">
               <img
                   src={user?.photoURL || "https://ui-avatars.com/api/?size=40&name=User"}

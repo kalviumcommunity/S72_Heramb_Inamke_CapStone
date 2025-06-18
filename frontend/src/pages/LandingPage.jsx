@@ -64,7 +64,7 @@ const LandingPage = () => {
       
       <header className="landing-header">
         <nav className="landing-nav">
-          <div className="logo">Eternal Love</div>
+          <div className="logo">WedWise</div>
           <Link to="/auth" className="nav-button">Sign In</Link>
         </nav>
       </header>
@@ -148,7 +148,7 @@ const LandingPage = () => {
       
       <footer className="landing-footer">
         <div className="footer-content">
-          <div className="footer-logo slide-in slide-left">Eternal Love</div>
+          <div className="footer-logo slide-in slide-left">WedWise</div>
           <div className="footer-links slide-in slide-up">
             <a href="#" className="footer-link">About Us</a>
             <a href="#" className="footer-link">Contact</a>
@@ -176,7 +176,7 @@ const LandingPage = () => {
           </div>
         </div>
         <div className="footer-bottom slide-in slide-up">
-          <p>© 2025 Eternal Love. All rights reserved.</p>
+          <p>© 2025 WedWise. All rights reserved.</p>
         </div>
       </footer>
     </div>
