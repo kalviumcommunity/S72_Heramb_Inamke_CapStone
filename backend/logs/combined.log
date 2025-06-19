@@ -44,3 +44,4 @@
 {"level":"warn","message":"MongoDB disconnected","service":"wedding-planner-api","timestamp":"2025-06-19 12:02:54"}
 {"level":"warn","message":"MongoDB disconnected","service":"wedding-planner-api","timestamp":"2025-06-19 12:13:50"}
 {"level":"warn","message":"MongoDB disconnected","service":"wedding-planner-api","timestamp":"2025-06-19 12:20:17"}
+{"level":"warn","message":"MongoDB disconnected","service":"wedding-planner-api","timestamp":"2025-06-19 13:43:17"}

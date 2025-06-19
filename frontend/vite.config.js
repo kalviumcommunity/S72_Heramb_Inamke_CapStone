@@ -7,6 +7,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
+      'firebase/app': 'firebase/app/dist/index.esm.js',
+      'firebase/auth': 'firebase/auth/dist/index.esm.js'
     },
   },
   optimizeDeps: {
@@ -14,6 +16,10 @@ export default defineConfig({
       'firebase/app',
       'firebase/auth',
     ],
+    esbuildOptions: {
+      mainFields: ['module', 'main'],
+      resolveExtensions: ['.js', '.jsx', '.ts', '.tsx'],
+    }
   },
   server: {
     port: 3000,
@@ -32,7 +38,6 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
-          firebase: ['firebase'],
         },
       },
     },
