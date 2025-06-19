@@ -6,19 +6,19 @@ import { useNavigate } from "react-router-dom";
 import "./styles/AuthStyles.css";
 
 const AuthPage = () => {
-  const { user, loading } = useAuth();
+  const user = useAuth();
+  const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   
-  // Only redirect if we're on the client side and not loading
   useEffect(() => {
-    if (typeof window !== 'undefined' && !loading && user) {
+    setLoading(false);
+    if (typeof window !== 'undefined' && user) {
       navigate("/dashboard");
     }
-  }, [user, loading, navigate]);
+  }, [user, navigate]);
 
-  // Only render auth UI if we're on the client side
   if (typeof window === 'undefined') {
     return <div>Loading...</div>;
   }

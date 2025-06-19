@@ -127,11 +127,11 @@ const LandingPage = () => {
           <div className="testimonials-carousel">
             <div className="testimonial-card slide-in slide-up">
               <div className="testimonial-image">
-                <img src="https://images.unsplash.com/photo-1623091410901-00e2d268901f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Happy couple" />
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIQL1cpPoEc1L9ZtekjBV6zZn9zk5HiSbEkA&s" alt="Happy couple" />
               </div>
               <div className="testimonial-content">
                 <p className="testimonial-text">"This platform made our wedding planning so much easier. We could focus on enjoying our special day instead of stressing about the details."</p>
-                <p className="testimonial-author">- Sarah & Michael</p>
+                <p className="testimonial-author">- A&amp;B</p>
               </div>
             </div>
           </div>

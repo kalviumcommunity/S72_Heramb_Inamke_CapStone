@@ -18,7 +18,14 @@ const useAuth = () => {
     return () => {};
   }, []);
 
-  return { user, loading };
+  return user;
+};
+
+export const getUserIdToken = async (user) => {
+  if (user) {
+    return await user.getIdToken();
+  }
+  return null;
 };
 
 export default useAuth;

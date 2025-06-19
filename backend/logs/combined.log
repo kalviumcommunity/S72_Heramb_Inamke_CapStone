@@ -39,3 +39,8 @@
 {"level":"error","message":"Create task error: Task validation failed: title: Title is required, dueDate: Due date must be in the future, wedding: Wedding is required","service":"wedding-planner-api","timestamp":"2025-05-22 21:00:27"}
 {"level":"info","message":{"duration":"20ms","ip":"::ffff:127.0.0.1","method":"POST","status":500,"url":"/"},"service":"wedding-planner-api","timestamp":"2025-05-22 21:00:27"}
 {"level":"info","message":{"duration":"18ms","ip":"::ffff:127.0.0.1","method":"GET","status":404,"url":"/682f4313003087d537b2eced"},"service":"wedding-planner-api","timestamp":"2025-05-22 21:00:27"}
+{"level":"info","message":"🚀 Server is running on port http://localhost:5000","service":"wedding-planner-api","timestamp":"2025-06-19 01:04:56"}
+{"level":"info","message":"MongoDB Connected: cluster0-shard-00-00.n2ztx.mongodb.net","service":"wedding-planner-api","timestamp":"2025-06-19 01:04:57"}
+{"level":"warn","message":"MongoDB disconnected","service":"wedding-planner-api","timestamp":"2025-06-19 12:02:54"}
+{"level":"warn","message":"MongoDB disconnected","service":"wedding-planner-api","timestamp":"2025-06-19 12:13:50"}
+{"level":"warn","message":"MongoDB disconnected","service":"wedding-planner-api","timestamp":"2025-06-19 12:20:17"}

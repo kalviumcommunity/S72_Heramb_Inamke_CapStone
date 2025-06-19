@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseconfig";
-import useAuth from "../../useAuth";
+import useAuth, { getUserIdToken } from "../../useAuth";
 import "../styles/DashboardStyles.css";
 import {
   getGuestsByWedding,
@@ -46,6 +46,15 @@ const Dashboard = () => {
   });
 
   useEffect(() => {
+    const storeToken = async () => {
+      if (user) {
+        const token = await getUserIdToken(user);
+        if (token) {
+          localStorage.setItem('token', token);
+        }
+      }
+    };
+    storeToken();
     if (user) {
       fetchGuests();
       fetchTasks();
