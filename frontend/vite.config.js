@@ -9,6 +9,12 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
+  optimizeDeps: {
+    include: [
+      'firebase/app',
+      'firebase/auth',
+    ],
+  },
   server: {
     port: 3000,
     proxy: {
