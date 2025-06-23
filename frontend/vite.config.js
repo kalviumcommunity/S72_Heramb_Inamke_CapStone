@@ -7,8 +7,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
-      'firebase/app': 'firebase/app/dist/index.esm.js',
-      'firebase/auth': 'firebase/auth/dist/index.esm.js'
+      // 'firebase/app': 'firebase/app/dist/index.esm.js',
+      // 'firebase/auth': 'firebase/auth/dist/index.esm.js'
     },
   },
   optimizeDeps: {
