@@ -18,7 +18,7 @@ const useAuth = () => {
     return () => {};
   }, []);
 
-  return user;
+  return { user, loading };
 };
 
 export const getUserIdToken = async (user) => {
