@@ -10,6 +10,7 @@ const useAuth = () => {
     if (typeof window !== 'undefined' && auth) {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         setUser(user);
+        console.log(user)
         setLoading(false);
       });
 
